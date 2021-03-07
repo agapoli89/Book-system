@@ -17,5 +17,8 @@ code {
 
 .container {
   width: 100vw;
-  margin: 0;
+}
+
+.form-control {
+  margin-right: 10px;
 }
