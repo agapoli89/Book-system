@@ -1,5 +1,6 @@
 .hotel {
-    border: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
     margin-bottom: 20px;
-    background-color: gainsboro;
+    padding-bottom: 20px;
+    /* background-color: gainsboro; */
 }
