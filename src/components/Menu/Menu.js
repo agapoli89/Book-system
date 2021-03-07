@@ -6,6 +6,7 @@ function Menu() {
         <div className={`${styles.menuContainer} container`}>
             <ul className={styles.menu}>
                 <li className={styles.menuItem}>
+                {/* eslint-disable-next-line */}
                     <a href="#">Home</a>
                 </li>
             </ul>
