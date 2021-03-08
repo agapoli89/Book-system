@@ -6,7 +6,7 @@ class Hotels extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <h2 className={styles.title}>Oferty</h2>
+                <h2 className={styles.title}>Oferty:</h2>
                 <Hotel />
                 <Hotel />
                 <Hotel />

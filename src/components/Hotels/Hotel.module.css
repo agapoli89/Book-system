@@ -1,6 +1,19 @@
 .hotel {
-    border-bottom: 1px solid #cdcdcd;
+    /* border-bottom: 1px solid #cdcdcd; */
     margin-bottom: 20px;
-    padding-bottom: 20px;
-    /* background-color: gainsboro; */
+    /* padding: 20px; */
+    background-color: gainsboro; 
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.description {
+    color: grey;
+    margin-top: 10px;
+    font-size: .88rem;
+    margin-bottom: 0;
 }
