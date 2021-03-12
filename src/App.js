@@ -5,6 +5,9 @@ import Hotels from './components/Hotels/Hotels';
 import Menu from './components/Menu/Menu';
 import LoadingIcon from './components/UI/LoadingIcon/LoadingIcon';
 import Searchbar from './components/UI/Searchbar/Searchbar';
+import Layout from './components/Layout/Layout';
+import Footer from './components/Footer/Footer';
+import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 
 
 class App extends Component {
@@ -37,10 +40,17 @@ class App extends Component {
     state = {
       hotels: [],
       loading: true,
+      theme: 'primary',
     }
-    searchHandler (term) {
+    searchHandler(term) {
       const hotels = [...this.hotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
       this.setState({hotels});
+    }
+
+    changeTheme = () => {
+      const newTheme = this.state.theme === 'primary'
+      ? 'danger' : 'primary';
+      this.setState({ theme: newTheme });
     }
 
     // symulacja pobierania danych z backendu
@@ -53,13 +63,35 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Header>
-          <Searchbar onSearch={term => this.searchHandler(term)}/>
-        </Header>
-        <Menu />
-        {this.state.loading ? <LoadingIcon /> : <Hotels hotels={this.state.hotels}/>}
-      </div>
+        <Layout 
+          header={
+            <Header>
+              <Searchbar 
+                onSearch={term => this.searchHandler(term)}
+                theme={this.state.theme}
+              />
+              <ThemeButton onChange={this.changeTheme} />
+            </Header>
+          }
+          menu={
+            <Menu theme={this.state.theme}/>
+          }
+          content={
+            this.state.loading 
+            ? <LoadingIcon 
+                theme={this.state.theme}
+              /> 
+            : <Hotels 
+                hotels={this.state.hotels}
+                theme={this.state.theme}
+              />
+          }
+          footer={
+            <div>
+              <Footer theme={this.state.theme}/>
+            </div>
+          }
+        />
     );
   }
 }
