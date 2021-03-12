@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
 import Menu from './components/Menu/Menu';
 import LoadingIcon from './components/UI/LoadingIcon/LoadingIcon';
+import Searchbar from './components/UI/Searchbar/Searchbar';
 
 
 class App extends Component {
@@ -53,7 +54,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header onSearch={term => this.searchHandler(term)}/>
+        <Header>
+          <Searchbar onSearch={term => this.searchHandler(term)}/>
+        </Header>
         <Menu />
         {this.state.loading ? <LoadingIcon /> : <Hotels hotels={this.state.hotels}/>}
       </div>
