@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Hotel from './Hotel';
 import styles from './Hotels.module.css';
 
@@ -7,9 +7,7 @@ class Hotels extends Component {
         return (
             <div className={styles.container}>
                 <h2 className={styles.title}>Oferty:</h2>
-                <Hotel />
-                <Hotel />
-                <Hotel />
+                {this.props.hotels.map(hotel => <Hotel key={hotel.id} {...hotel}/>)}
             </div>
         )
     }
