@@ -30,7 +30,7 @@ function Hotel(props) {
                             <div className="col text-right">
                                 <h5>{props.rating}</h5>
                                 {/* eslint-disable-next-line */}  
-                                <a href="#" className="btn btn-primary float-right mt-2 px-5">Pokaż</a>
+                                <a href="#" className={`btn btn-${props.theme} float-right mt-2 px-5`}>Pokaż</a>
                             </div>
                         </div>
                     </div>
