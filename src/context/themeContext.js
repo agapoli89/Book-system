@@ -1,8 +1,8 @@
 import React from 'react';
 
 const ThemeContext = React.createContext({
-    theme: 'primary',
-    onChange: () => {},
+    color: 'primary',
+    changeTheme: () => {},
 });
 
 export default ThemeContext;

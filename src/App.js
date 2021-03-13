@@ -49,7 +49,7 @@ class App extends Component {
     }
 
     changeTheme = () => {
-      const newTheme = this.context === 'primary'
+      const newTheme = this.state.theme === 'primary'
       ? 'danger' : 'primary';
       this.setState({ theme: newTheme });
     }
@@ -81,8 +81,8 @@ class App extends Component {
     )
     return (
       <ThemeContext.Provider value={{
-        theme: this.state.theme,
-        onChange: this.changeTheme
+        color: this.state.theme,
+        changeTheme: this.changeTheme
       }}>
         <Layout 
           header={header}
