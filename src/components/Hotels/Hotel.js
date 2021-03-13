@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './Hotel.module.css';
-import hotelImg from '../../assets/images/hotel.jpg'
+import hotelImg from '../../assets/images/hotel.jpg';
+import ThemeContext from '../../context/themeContext';
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -29,8 +30,12 @@ function Hotel(props) {
                             </div>
                             <div className="col text-right">
                                 <h5>{props.rating}</h5>
-                                {/* eslint-disable-next-line */}  
-                                <a href="#" className={`btn btn-${props.theme} float-right mt-2 px-5`}>Pokaż</a>
+                                {/* eslint-disable-next-line */} 
+                                <ThemeContext.Consumer>
+                                    {value =>
+                                        <a href="#" className={`btn btn-${value} float-right mt-2 px-5`}>Pokaż</a>
+                                    }
+                                </ThemeContext.Consumer>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,6 @@ const propTypes = {
 }
 
 class Hotels extends Component {
-
     render() {
         return (
             <div className={styles.container}>
@@ -16,7 +15,6 @@ class Hotels extends Component {
                 {this.props.hotels.map(hotel => (
                     <Hotel 
                     key={hotel.id} {...hotel}
-                    theme={this.props.theme}
                     />
                 ))}
             </div>
