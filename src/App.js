@@ -68,7 +68,7 @@ class App extends Component {
         <Searchbar 
           onSearch={term => this.searchHandler(term)}
         />
-        <ThemeButton onChange={this.changeTheme} />
+        <ThemeButton/>
       </Header>
     );
     const content = (
@@ -80,7 +80,10 @@ class App extends Component {
               />
     )
     return (
-      <ThemeContext.Provider value='primary'>
+      <ThemeContext.Provider value={{
+        theme: this.state.theme,
+        onChange: this.changeTheme
+      }}>
         <Layout 
           header={header}
           menu={<Menu/>}

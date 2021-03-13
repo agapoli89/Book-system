@@ -32,8 +32,8 @@ function Hotel(props) {
                                 <h5>{props.rating}</h5>
                                 {/* eslint-disable-next-line */} 
                                 <ThemeContext.Consumer>
-                                    {value =>
-                                        <a href="#" className={`btn btn-${value} float-right mt-2 px-5`}>Pokaż</a>
+                                    {({theme}) =>
+                                        <a href="#" className={`btn btn-${theme} float-right mt-2 px-5`}>Pokaż</a>
                                     }
                                 </ThemeContext.Consumer>
                             </div>
