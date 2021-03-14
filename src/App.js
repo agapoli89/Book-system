@@ -136,33 +136,42 @@ const reducer = (state, action) => {
 
   switch (action.type) {
     case 'change-theme':
-      return state === 'primary' ? 'danger' : 'primary';
+      const theme = state.theme === 'primary' ? 'danger' : 'primary';
+      return { ...state, theme };
+    case 'set-hotels':
+      return { ...state, hotels: action.hotels };
+    case 'set-loading':
+      return { ...state, loading: action.loading };
+    case 'login':
+      return { ...state, isAuthenticated: true };
+    case 'logout':
+      return { ...state, isAuthenticated: false };
     default:
       throw new Error(`Nie ma takiej akcji ${action.type}`)
   }
 }
 
+const initialState = {
+  hotels: [],
+  loading: true,
+  isAuthenticated: false,
+  theme: 'primary',
+}
+
 function App() {
-  const [hotels, setHotels] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   //const [theme, setTheme] = useState('primary');
-  const [state, dispatch] = useReducer(reducer, 'primary');
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const changeTheme = () => {
-    dispatch({ type: 'change-theme' });
-  }
 
   const searchHandler = term => {
     const newHotels = [...backendHotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
-    setHotels(newHotels);
+    dispatch({ type: 'set-hotels', hotels: newHotels});
   }
 
   useEffect(() => {
     setTimeout(() => {
-      setHotels(backendHotels);  
-      setLoading(false);
+      dispatch({ type: 'set-hotels', hotels: backendHotels });
+      dispatch({ type: 'set-loading', loading: false })
     }, 1000);
   }, [])
   
@@ -175,20 +184,20 @@ function App() {
     </Header>
   );
   const content = (
-    loading 
+    state.loading 
       ? <LoadingIcon /> 
-      : <Hotels hotels={hotels} />
+      : <Hotels hotels={state.hotels} />
   );
 
   return (
     <AuthContext.Provider value={{ 
-      isAuthenticated: isAuthenticated,
-      login: () => setIsAuthenticated(true),
-      logout: () => setIsAuthenticated(false),
+      isAuthenticated: state.isAuthenticated,
+      login: () => dispatch({ type: 'login' }),
+      logout: () => dispatch({ type: 'logout' }),
     }}>
     <ThemeContext.Provider value={{
-      color: state,
-      changeTheme: changeTheme
+      color: state.theme,
+      changeTheme: () => {dispatch({ type: 'change-theme' })}
     }}>
       <Layout 
         header={header}
