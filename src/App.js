@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
@@ -132,16 +132,26 @@ const backendHotels = [
   }
 } */
 
+const reducer = (state, action) => {
+
+  switch (action.type) {
+    case 'change-theme':
+      return state === 'primary' ? 'danger' : 'primary';
+    default:
+      throw new Error(`Nie ma takiej akcji ${action.type}`)
+  }
+}
+
 function App() {
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState('primary');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  //const [theme, setTheme] = useState('primary');
+  const [state, dispatch] = useReducer(reducer, 'primary');
+
   const changeTheme = () => {
-    const newTheme = theme === 'primary'
-    ? 'danger' : 'primary';
-    setTheme(newTheme);
+    dispatch({ type: 'change-theme' });
   }
 
   const searchHandler = term => {
@@ -177,7 +187,7 @@ function App() {
       logout: () => setIsAuthenticated(false),
     }}>
     <ThemeContext.Provider value={{
-      color: theme,
+      color: state,
       changeTheme: changeTheme
     }}>
       <Layout 
