@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
