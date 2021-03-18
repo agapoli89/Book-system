@@ -193,7 +193,7 @@ function App() {
       ? <LoadingIcon /> 
       : (
         <>
-          <BestHotel getHotel={getBestHotel}/>
+          {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
           <Hotels hotels={state.hotels} />
         </>
       )

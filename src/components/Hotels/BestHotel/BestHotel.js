@@ -1,5 +1,28 @@
+import { useEffect, useState } from "react";
+import moment from 'moment';
+
 const BestHotel = (props) => {
+    const [time, setTime] = useState('');
+
     const hotel = props.getHotel();
+    const endTime = moment().add(0, 'minutes').add(34, 'seconds');
+    let interval = null;
+    
+
+    useEffect(() => {
+        interval = setInterval(() => {
+            const leftTime = -moment().diff(endTime) / 1000;
+            const minutes = Math.floor(leftTime / 60);
+            const seconds = Math.floor(leftTime % 60);
+            setTime(minutes > 0 || seconds > 0 ? `minut: ${minutes}, sekund: ${seconds}` : `Czas minął :(`);
+            if (minutes < 0 && seconds < 0) {
+                clearInterval(interval);
+            }
+            console.log(leftTime)
+        }, 1000);
+
+        return () => clearInterval(interval)
+    }, [])
 
     if (!hotel) return null;
 
@@ -10,6 +33,7 @@ const BestHotel = (props) => {
                 <h5 className='card-title'>{hotel.name}</h5> <p>Ocena: {hotel.rating}</p>
                 <a href="#" className="btn btn-sm btn-light d-flex align-items-center">Pokaż</a>
             </div>
+            <p className="text-center">Do końca oferty pozostało: {time}</p>
         </div>
     )
 }
