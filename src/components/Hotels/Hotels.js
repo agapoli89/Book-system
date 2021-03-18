@@ -25,11 +25,10 @@ const propTypes = {
 
 function Hotels(props) {
 
-    useEffect(() => console.log('hotels render'));
-
+    const count = props.hotels.length;
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Oferty:</h2>
+            <h2 className={styles.title}>Oferty ({count}):</h2>
             {props.hotels.map(hotel => (
                 <Hotel 
                 key={hotel.id} {...hotel}
