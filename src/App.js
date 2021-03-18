@@ -155,7 +155,7 @@ const reducer = (state, action) => {
 const initialState = {
   hotels: [],
   loading: true,
-  isAuthenticated: false,
+  isAuthenticated: true,
   theme: 'primary',
 }
 
