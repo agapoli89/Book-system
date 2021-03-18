@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
+import BestHotel from './components/Hotels/BestHotel/BestHotel';
 
 const backendHotels = [
   {
@@ -133,7 +134,6 @@ const backendHotels = [
 } */
 
 const reducer = (state, action) => {
-
   switch (action.type) {
     case 'change-theme':
       const theme = state.theme === 'primary' ? 'danger' : 'primary';
@@ -162,11 +162,14 @@ function App() {
   //const [theme, setTheme] = useState('primary');
   const [state, dispatch] = useReducer(reducer, initialState);
 
-
   const searchHandler = term => {
     const newHotels = [...backendHotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
     dispatch({ type: 'set-hotels', hotels: newHotels});
   }
+
+  const getBestHotel = () => state.hotels.length < 2
+  ? null 
+  : state.hotels.sort((a,b) => a.rating > b.rating ? -1 : 1)[0];
 
   useEffect(() => {
     setTimeout(() => {
@@ -186,7 +189,12 @@ function App() {
   const content = (
     state.loading 
       ? <LoadingIcon /> 
-      : <Hotels hotels={state.hotels} />
+      : (
+        <>
+          <BestHotel getHotel={getBestHotel}/>
+          <Hotels hotels={state.hotels} />
+        </>
+      )
   );
 
   return (
