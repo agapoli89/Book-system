@@ -1,17 +1,18 @@
 import styles from './Menu.module.css';
-import AuthContext from '../../context/authContext';
-import React, { useContext } from 'react';
+import useAuth from '../../hooks/useAuth';
+
 
 
 function Menu() {
-    const auth = useContext(AuthContext);
+    const [auth, setAuth] = useAuth();
+
     const login = (e) => {
         e.preventDefault();
-        auth.login();
+        setAuth(true);
     }
     const logout = (e) => {
         e.preventDefault();
-        auth.logout();
+        setAuth(false);
     }
     return (
         <div className={`${styles.menuContainer} breadcrumb`}>
@@ -20,8 +21,7 @@ function Menu() {
                 {/* eslint-disable-next-line */}
                     <a href="#">Home</a>
                 </li>
-                {auth.isAuthenticated
-                     ? (
+                {auth ? (
                      <li className={styles.menuItem}>  
                         <a href="#" onClick={logout}>Wyloguj</a>
                      </li> 
