@@ -12,6 +12,7 @@ import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
 import BestHotel from './components/Hotels/BestHotel/BestHotel';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
+import useStateStorage from './hooks/useStateStorage';
 
 const backendHotels = [
   {
@@ -162,6 +163,7 @@ const initialState = {
 function App() {
   //const [theme, setTheme] = useState('primary');
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [storage, setStorage] = useStateStorage('klucz', 'wartość startowa');
 
   const searchHandler = term => {
     const newHotels = [...backendHotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
@@ -193,6 +195,10 @@ function App() {
       ? <LoadingIcon /> 
       : (
         <>
+          <input 
+            type="text" 
+            value={storage} 
+            onChange={e => setStorage(e.target.value)} />
           {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
           <Hotels hotels={state.hotels} />
         </>
