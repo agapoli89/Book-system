@@ -195,10 +195,6 @@ function App() {
       ? <LoadingIcon /> 
       : (
         <>
-          <input 
-            type="text" 
-            value={storage} 
-            onChange={e => setStorage(e.target.value)} />
           {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
           <Hotels hotels={state.hotels} />
         </>
