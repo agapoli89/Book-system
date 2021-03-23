@@ -18,7 +18,6 @@ const BestHotel = (props) => {
             if (minutes < 0 && seconds < 0) {
                 clearInterval(interval);
             }
-            console.log(leftTime)
         }, 1000);
 
         return () => clearInterval(interval)
