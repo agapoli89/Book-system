@@ -15,6 +15,12 @@ const propTypes = {
 function Hotel(props) {
     const theme = useContext(ThemeContext);
     const [auth] = useAuth();
+
+    const clickHandler = e => {
+        e.preventDefault();
+        props.onOpen(props);
+    }
+
     return (
         <div className={`card ${styles.hotel}`}>
             <div className="card-body">
@@ -36,7 +42,12 @@ function Hotel(props) {
                                 <h5>{props.rating}</h5>
                                 {
                                 /* eslint-disable-next-line */
-                                <a href="#" className={`btn btn-${theme.color} float-right mt-2 px-5`}>Pokaż</a>
+                                <a 
+                                    href="#"
+                                    onClick={clickHandler} 
+                                    className={`btn btn-${theme.color} float-right mt-2 px-5`}>
+                                    Pokaż
+                                </a>
                                 }
                             </div>
                         </div>
