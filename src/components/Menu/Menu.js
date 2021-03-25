@@ -1,7 +1,6 @@
 import styles from './Menu.module.css';
 import useAuth from '../../hooks/useAuth';
-
-
+import { Link } from 'react-router-dom';
 
 function Menu() {
     const [auth, setAuth] = useAuth();
@@ -18,8 +17,7 @@ function Menu() {
         <div className={`${styles.menuContainer} breadcrumb`}>
             <ul className={styles.menu}>
                 <li className={styles.menuItem}>
-                {/* eslint-disable-next-line */}
-                    <a href="#">Home</a>
+                    <Link to="/">Home</Link>
                 </li>
                 {auth ? (
                      <li className={styles.menuItem}>  
