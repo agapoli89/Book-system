@@ -4,6 +4,7 @@ import hotelImg from '../../assets/images/hotel.jpg';
 import ThemeContext from '../../context/themeContext';
 import { useContext } from 'react';
 import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -17,7 +18,7 @@ function Hotel(props) {
     const [auth] = useAuth();
 
     const clickHandler = e => {
-        e.preventDefault();
+        //e.preventDefault();
         props.onOpen(props);
     }
 
@@ -40,15 +41,12 @@ function Hotel(props) {
                             </div>
                             <div className="col text-right">
                                 <h5>{props.rating}</h5>
-                                {
-                                /* eslint-disable-next-line */
-                                <a 
-                                    href="#"
-                                    onClick={clickHandler} 
-                                    className={`btn btn-${theme.color} float-right mt-2 px-5`}>
+                                <Link 
+                                    to={`/hotel/${props.id}`} 
+                                    className={`btn btn-${theme.color} float-right mt-2 px-5`} 
+                                    onClick={clickHandler}>
                                     Pokaż
-                                </a>
-                                }
+                                </Link>
                             </div>
                         </div>
                     </div>
