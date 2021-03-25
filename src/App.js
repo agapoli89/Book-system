@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
@@ -11,9 +11,9 @@ import ThemeContext from './context/themeContext';
 import AuthContext from './context/authContext';
 import ReducerContext from './context/reducerContext';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
-
 import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
+import Hotel from './components/Hotels/Hotel';
 
 const backendHotels = [
   {
@@ -155,15 +155,15 @@ function App() {
     </Header>
   );
   const content = (
-    <>
-      <Route exact path="/">
-        <Home />
+    <Switch>
+      <Route path={`/hotels/${backendHotels[0].id}`}>
+        <Hotel />
       </Route>
 
-      <Route path={`/hotel/${backendHotels[0].id}`}>
-        <h1>To jest jakiś hotel</h1>
+      <Route path="/">
+        <Home />
       </Route>
-    </>
+    </Switch>
   );
 
   return (
