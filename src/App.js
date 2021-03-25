@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
@@ -198,39 +198,43 @@ function App() {
     </Header>
   );
   const content = (
-    state.loading 
-      ? <LoadingIcon /> 
-      : (
-        <>
-          {lastHotel ? <LastHotel {...lastHotel} onRemove={removeLastHotel}/> : null}
-          {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
-          <Hotels onOpen={openHotel} hotels={state.hotels} />
-        </>
-      )
+    <>
+      <Route exact path="/">
+        {lastHotel ? <LastHotel {...lastHotel} onRemove={removeLastHotel}/> : null}
+        {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
+        <Hotels onOpen={openHotel} hotels={state.hotels} />
+      </Route>
+
+      <Route path={`/hotel/${backendHotels[0].id}`}>
+        <h1>To jest jakiś hotel</h1>
+      </Route>
+    </>
   );
 
   return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated: state.isAuthenticated,
-      login: () => dispatch({ type: 'login' }),
-      logout: () => dispatch({ type: 'logout' }),
-    }}>
-    <ThemeContext.Provider value={{
-      color: state.theme,
-      changeTheme: () => {dispatch({ type: 'change-theme' })}
-    }}>
-      <Layout 
-        header={header}
-        menu={<Menu/>}
-        content={content}
-        footer={
-          <div>
-            <Footer/>
-          </div>
-        }
-      />
-    </ThemeContext.Provider>
-    </AuthContext.Provider>
+    <Router>
+      <AuthContext.Provider value={{ 
+        isAuthenticated: state.isAuthenticated,
+        login: () => dispatch({ type: 'login' }),
+        logout: () => dispatch({ type: 'logout' }),
+      }}>
+      <ThemeContext.Provider value={{
+        color: state.theme,
+        changeTheme: () => {dispatch({ type: 'change-theme' })}
+      }}>
+        <Layout 
+          header={header}
+          menu={<Menu/>}
+          content={state.loading ? <LoadingIcon /> : content}
+          footer={
+            <div>
+              <Footer/>
+            </div>
+          }
+        />
+      </ThemeContext.Provider>
+      </AuthContext.Provider>
+    </Router>
   )
 };
 
