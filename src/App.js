@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Hotels from './components/Hotels/Hotels';
@@ -14,6 +15,7 @@ import BestHotel from './components/Hotels/BestHotel/BestHotel';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
 import LastHotel from './components/Hotels/LastHotel/LastHotel';
 import useStateStorage from "./hooks/useStateStorage";
+import useWebsiteTitle from './hooks/useWebsiteTitle';
 
 const backendHotels = [
   {
@@ -164,8 +166,8 @@ const initialState = {
 function App() {
   //const [theme, setTheme] = useState('primary');
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const [lastHotel, setLastHotel] = useStateStorage('last-hotel', null);
+  useWebsiteTitle('Noclegi-strona główna')
 
   const searchHandler = term => {
     const newHotels = [...backendHotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
@@ -230,6 +232,6 @@ function App() {
     </ThemeContext.Provider>
     </AuthContext.Provider>
   )
-}
+};
 
 export default App;
