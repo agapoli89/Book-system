@@ -14,34 +14,7 @@ import InspiringQuote from './components/InspiringQuote/InspiringQuote';
 import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
 import Hotel from './pages/Hotel/Hotel';
-import LoadingIcon from './components/UI/LoadingIcon/LoadingIcon';
-
-const backendHotels = [
-  {
-    id: 1,
-    name: 'Przy ratuszu',
-    city: 'Wrocław',
-    rating: 8.4,
-    description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-    image: ''
-  },
-  {
-    id: 2,
-    name: 'Pod stokiem',
-    city: 'Wisła',
-    rating: 9.5,
-    description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-    image: ''
-  },
-  {
-    id: 3,
-    name: 'Nad morzem',
-    city: 'Gdynia',
-    rating: 7.8,
-    description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-    image: ''
-  }
-]
+import Search from './pages/Search/Search';
 
 //App as class component
 /* class App extends Component {
@@ -140,34 +113,20 @@ const backendHotels = [
 function App() {
   //const [theme, setTheme] = useState('primary');
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const searchHandler = term => {
-    const newHotels = [...backendHotels].filter(hotel => hotel.name.toLowerCase().includes(term.toLowerCase()));
-    dispatch({ type: 'set-hotels', hotels: newHotels});
-  }
   
   const header = (
     <Header>
       <InspiringQuote />
-      <Searchbar 
-        onSearch={term => searchHandler(term)}
-      />
+      <Searchbar />
       <ThemeButton/>
     </Header>
   );
   const content = (
-    <>
-      <Switch>
-        <Route path="/hotele/:id">
-          <Hotel />
-        </Route>
-
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-      {state.loading ? <LoadingIcon /> : null}
-    </>
+    <Switch>
+      <Route path="/hotele/:id" component={Hotel}/>
+      <Route path="/wyszukaj/:term" component={Search}/>
+      <Route path="/" component={Home} />
+    </Switch>
   );
 
   return (
