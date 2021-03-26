@@ -47,15 +47,15 @@ export default function Home(props) {
     const removeLastHotel = () => setLastHotel(null);
 
     useEffect(() => {
-        setTimeout(() => {
-          reducer.dispatch({ type: 'set-hotels', hotels: backendHotels });
-          reducer.dispatch({ type: 'set-loading', loading: false })
-        }, 1000);
+      reducer.dispatch({ type: 'set-loading', loading: true })  
+
+      setTimeout(() => {
+        reducer.dispatch({ type: 'set-hotels', hotels: backendHotels });
+        reducer.dispatch({ type: 'set-loading', loading: false })
+      }, 1000);
     }, []);
 
-    if (reducer.state.loading) {
-        <LoadingIcon />;
-    }
+    if (reducer.state.loading) return null;
 
     return (
         <>

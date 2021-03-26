@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import LoadingIcon from "../../components/UI/LoadingIcon/LoadingIcon";
+import ReducerContext from "../../context/reducerContext";
 
 function Hotel(props) {
     const { id } = useParams();
     const [hotel, setHotel] = useState({});
-    const [loading, setLoading] = useState(true);
+    const reducer = useContext(ReducerContext);
     
     const fetchHotel = () => {
+        
         setHotel({
             id: 1,
             name: 'Przy ratuszu',
@@ -16,16 +17,17 @@ function Hotel(props) {
             description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
             image: ''
           });
-        setLoading(false);
+          reducer.dispatch({ type: 'set-loading', loading: false })
     }
 
     useEffect(() => {
+        reducer.dispatch({ type: 'set-loading', loading: true })
         setTimeout(() => {
             fetchHotel();
         }, 500);
     }, []);
 
-    if (loading) return <LoadingIcon />
+    if (reducer.state.loading) return null;
 
     return <h1>Hotel: {hotel.name}</h1>;
 }
