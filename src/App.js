@@ -13,7 +13,7 @@ import ReducerContext from './context/reducerContext';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
 import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
-import Hotel from './components/Hotels/Hotel';
+import Hotel from './pages/Hotel/Hotel';
 
 const backendHotels = [
   {
@@ -156,7 +156,7 @@ function App() {
   );
   const content = (
     <Switch>
-      <Route path={`/hotels/${backendHotels[0].id}`}>
+      <Route path="/hotele/:id">
         <Hotel />
       </Route>
 
@@ -173,27 +173,27 @@ function App() {
         login: () => dispatch({ type: 'login' }),
         logout: () => dispatch({ type: 'logout' }),
       }}>
-      <ThemeContext.Provider value={{
-        color: state.theme,
-        changeTheme: () => {dispatch({ type: 'change-theme' })}
-      }}>
-        <ReducerContext.Provider value={{
-          state: state,
-          dispatch: dispatch,
+        <ThemeContext.Provider value={{
+          color: state.theme,
+          changeTheme: () => {dispatch({ type: 'change-theme' })}
         }}>
-          <Layout 
-            header={header}
-            menu={<Menu/>}
-            content={content}
-            footer={
-              <div>
-                <Footer/>
-              </div>
-            }
-          />
-        </ReducerContext.Provider>
-        
-      </ThemeContext.Provider>
+          <ReducerContext.Provider value={{
+            state: state,
+            dispatch: dispatch,
+          }}>
+            <Layout 
+              header={header}
+              menu={<Menu/>}
+              content={content}
+              footer={
+                <div>
+                  <Footer/>
+                </div>
+              }
+            />
+          </ReducerContext.Provider>
+          
+        </ThemeContext.Provider>
       </AuthContext.Provider>
     </Router>
   )
