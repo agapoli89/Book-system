@@ -17,6 +17,8 @@ import Hotel from './pages/Hotel/Hotel';
 import Search from './pages/Search/Search';
 import Profile from './pages/Profile/Profile';
 import NotFound from './pages/404/404';
+import Login from './pages/Auth/Login/Login';
+import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute';
 
 //App as class component
 /* class App extends Component {
@@ -125,9 +127,10 @@ function App() {
   );
   const content = (
     <Switch>
-      <Route path="/hotele/:id" component={Hotel}/>
-      <Route path="/wyszukaj/:term?" component={Search}/>
-      <Route path="/profil" component={Profile}/>
+      <AuthenticatedRoute path="/profil" component={Profile} />
+      <Route path="/hotele/:id" component={Hotel} />
+      <Route path="/wyszukaj/:term?" component={Search} />
+      <Route path="/zaloguj" component={Login} />
       <Route path="/" exact component={Home} />
       <Route component={NotFound} />
     </Switch>
