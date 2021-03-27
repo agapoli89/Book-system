@@ -16,6 +16,7 @@ import Home from './pages/Home/Home';
 import Hotel from './pages/Hotel/Hotel';
 import Search from './pages/Search/Search';
 import Profile from './pages/Profile/Profile';
+import NotFound from './pages/404/404';
 
 //App as class component
 /* class App extends Component {
@@ -125,9 +126,10 @@ function App() {
   const content = (
     <Switch>
       <Route path="/hotele/:id" component={Hotel}/>
-      <Route path="/wyszukaj/:term" component={Search}/>
+      <Route path="/wyszukaj/:term?" component={Search}/>
       <Route path="/profil" component={Profile}/>
-      <Route path="/" component={Home} />
+      <Route path="/" exact component={Home} />
+      <Route component={NotFound} />
     </Switch>
   );
 
