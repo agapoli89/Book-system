@@ -15,6 +15,7 @@ import { reducer, initialState } from './reducer';
 import Home from './pages/Home/Home';
 import Hotel from './pages/Hotel/Hotel';
 import Search from './pages/Search/Search';
+import Profile from './pages/Profile/Profile';
 
 //App as class component
 /* class App extends Component {
@@ -125,6 +126,7 @@ function App() {
     <Switch>
       <Route path="/hotele/:id" component={Hotel}/>
       <Route path="/wyszukaj/:term" component={Search}/>
+      <Route path="/profil" component={Profile}/>
       <Route path="/" component={Home} />
     </Switch>
   );
