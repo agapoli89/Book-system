@@ -1,6 +1,6 @@
 import styles from './Menu.module.css';
 import useAuth from '../../hooks/useAuth';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function Menu() {
     const [auth, setAuth] = useAuth();
@@ -17,17 +17,26 @@ function Menu() {
         <div className={`${styles.menuContainer} breadcrumb`}>
             <ul className={styles.menu}>
                 <li className={styles.menuItem}>
-                    <Link to="/">Home</Link>
+                    <NavLink exact to="/" activeClassName={styles.menuItemActive}>
+                        Home
+                    </NavLink>
                 </li>
                 {auth ? (
-                     <li className={styles.menuItem}>  
-                        <a href="#" onClick={logout}>Wyloguj</a>
-                     </li> 
+                        <>
+                            <li className={styles.menuItem}>  
+                                <NavLink to="/profil" activeClassName={styles.menuItemActive}>
+                                    Mój profil
+                                </NavLink>
+                            </li>
+                            <li className={styles.menuItem}>  
+                                <a href="#" onClick={logout}>Wyloguj</a>
+                            </li>
+                        </> 
                      )
                      : (
-                     <li className={styles.menuItem}>
-                        <a href="#" onClick={login}>Zaloguj</a>
-                     </li>
+                        <li className={styles.menuItem}>
+                            <a href="#" onClick={login}>Zaloguj</a>
+                        </li>
                      )
                 }
             </ul>
