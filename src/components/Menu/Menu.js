@@ -1,6 +1,6 @@
 import styles from './Menu.module.css';
 import useAuth from '../../hooks/useAuth';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Menu() {
     const [auth, setAuth] = useAuth();
