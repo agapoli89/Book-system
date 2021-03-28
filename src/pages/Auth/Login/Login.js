@@ -6,9 +6,11 @@ import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 export default function Login(props) {
     const [auth, setAuth] = useAuth();
     const history = useHistory();
+
     const [email, setEmail] = useState('');
     const [passowrd, setPassowrd] = useState('');
     const [loading, setLoading] = useState(false);
+    const [valid, setValid] = useState(null);
 
     const submit = (e) => {
         e.preventDefault();
@@ -16,14 +18,25 @@ export default function Login(props) {
         
         setTimeout(() => {
             //logowanie
-            setAuth(true);
-            history.push('/');
+            if (true) {
+                setAuth(true);
+                history.push('/');
+            } else {
+                setValid(false);
+                setPassowrd('');
+            }
+            setLoading(false);
         }, 500);
     }
 
     return (
         <div>
             <h2>Logowanie</h2>
+
+            {valid === false ? (
+                <div className="alert alert-danger">Niepoprawne dane logowania</div>
+            ) : null}
+
             <form onSubmit={submit}>
                 <div className="form-group">
                     <label>Email</label>
