@@ -8,7 +8,7 @@ export default function Login(props) {
     const history = useHistory();
 
     const [email, setEmail] = useState('');
-    const [passowrd, setPassowrd] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [valid, setValid] = useState(null);
 
@@ -23,7 +23,7 @@ export default function Login(props) {
                 history.push('/');
             } else {
                 setValid(false);
-                setPassowrd('');
+                setPassword('');
             }
             setLoading(false);
         }, 500);
@@ -50,8 +50,8 @@ export default function Login(props) {
                     <label>Hasło</label>
                     <input 
                         type="password" 
-                        value={passowrd} 
-                        onChange={e => setPassowrd(e.target.value)} 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)} 
                         className="form-control"/>
                 </div>
                 <LoadingButton loading={loading}>Zaloguj</LoadingButton>
