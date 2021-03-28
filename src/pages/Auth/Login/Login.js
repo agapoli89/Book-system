@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAuth from '../../../hooks/useAuth';
 import { useHistory } from 'react-router-dom';
+import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 
 export default function Login(props) {
     const [auth, setAuth] = useAuth();
@@ -40,14 +41,7 @@ export default function Login(props) {
                         onChange={e => setPassowrd(e.target.value)} 
                         className="form-control"/>
                 </div>
-                {loading 
-                    ? ( 
-                        <button className="btn btn-primary" type="button" disabled>
-                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            <span className="sr-only">Loading...</span>
-                        </button>
-                    ) 
-                    : <button className="btn btn-primary">Zapisz</button>}  
+                <LoadingButton loading={loading}>Zaloguj</LoadingButton>
             </form>
         </div>
     )
