@@ -40,7 +40,14 @@ export default function Login(props) {
                         onChange={e => setPassowrd(e.target.value)} 
                         className="form-control"/>
                 </div>
-                <button className="btn btn-primary">Zapisz</button>
+                {loading 
+                    ? ( 
+                        <button className="btn btn-primary" type="button" disabled>
+                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span className="sr-only">Loading...</span>
+                        </button>
+                    ) 
+                    : <button className="btn btn-primary">Zapisz</button>}  
             </form>
         </div>
     )
