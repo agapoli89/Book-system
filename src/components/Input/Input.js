@@ -9,7 +9,7 @@ const InputText = props => {
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
                 type={props.type}
-                className={`form-control ${!props.error && props.showError ? 'is-invalid' : ''}`} />
+                className={`form-control ${props.error && props.showError ? 'is-invalid' : ''}`} />
             <div className="invalid-feedback">
                 {props.error}
             </div>
@@ -25,7 +25,7 @@ const InputTextarea = props => {
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
                 type={props.type}
-                className={`form-control ${!props.error && props.showError ? 'is-invalid' : ''}`} />
+                className={`form-control ${props.error && props.showError ? 'is-invalid' : ''}`} />
             <div className="invalid-feedback">
                 {props.error}
             </div>
@@ -40,7 +40,7 @@ const InputSelect = props => {
             <select 
                 value={props.value} 
                 onChange={e => props.onChange(e.target.value)}
-                className={`form-control ${!props.error && props.showError ? 'is-invalid' : ''}`}>
+                className={`form-control ${props.error && props.showError ? 'is-invalid' : ''}`}>
                     {props.options.map(option => 
                         <option value={option.value} key={option.value}>{option.label}</option>
                     )}
