@@ -9,13 +9,13 @@ function AddHotel(props) {
             value: '',
             error: '',
             showError: false,
-            rules: ['required'],
+            rules: ['required', { rule: 'min', length: 4 }],
         },
         description: {
             value: '',
             error: '',
             showError: false,
-            rules: ['required'],
+            rules: ['required', { rule: 'min', length: 10 }],
         },
         city: {
             value: '',
@@ -58,13 +58,15 @@ function AddHotel(props) {
     }
 
     const changeHandler = (value, fieldName) => {
+        const error = validate(form[fieldName].rules, value);
+
         setForm({
             ...form, 
             [fieldName]: {
                 ...form[fieldName], 
                 value,
                 showError: true,
-                error: 'Pole wymagane'
+                error: error,
             } 
         });
     }
