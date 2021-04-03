@@ -10,8 +10,9 @@
     margin-right: 15px;
 }
 
-.menuItem a {
-    color: gray
+.menuItem button {
+    color: gray;
+    border-color: transparent;
 }
 
 .menuItemActive {
