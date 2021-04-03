@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import { useRef } from 'react';
-
 const InputText = props => {
     return (
         <div className="form-group">
@@ -84,7 +81,6 @@ const InputCheckbox = props => {
 }
 
 const InputFile = props => {
-    const fileRef = useRef();
     const changeHandler = (e) => props.onChange(e.target.files[0]);
     return (
         <div className="form-group">
