@@ -2,9 +2,13 @@ import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import Input from '../../../components/Input/Input';
 import { validate } from '../../../helpers/validations';
-import axios from '../../../axios';
+import axiosFresh from 'axios';
+import useAuth from '../../../hooks/useAuth';
+import { useHistory } from 'react-router-dom';
 
 export default function Register(props) {
+    const history = useHistory();
+    const [auth, setAuth] = useAuth();
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         email: {
@@ -28,15 +32,19 @@ export default function Register(props) {
         e.preventDefault();
         setLoading(true);
 
-        //const res = await axios.post('https://book-system-1ca8d-default-rtdb.firebaseio.com/users.json', { email: 'test@test.pl', password: 'tajne'});
-
-        const res = await axios.get('/users.json');
-
-        console.log(res)
+        try {
+            const res = await axiosFresh.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyClC2eUU2_QxtASujHZhSRRi1mWaUKH9Ow', {
+            email: form.email.value,
+            password: form.password.value,
+            returnSecureToken: true,
+        });
+            setAuth(true, res.data);
+            history.push('/');
+        } catch (ex) {
+            console.log(ex.response)
+        }
         
-        setTimeout(() => {
-            setLoading(false);
-        }, 500);
+        setLoading(false);
     }
 
     const changeHandler = (value, fieldName) => {
@@ -51,6 +59,10 @@ export default function Register(props) {
                 error: error,
             } 
         });
+    }
+
+    if (auth) {
+        history.push('/');
     }
 
     return (
