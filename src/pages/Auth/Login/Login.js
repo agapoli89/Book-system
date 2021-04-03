@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 
 export default function Login(props) {
-    const [auth, setAuth] = useAuth();
+    const [setAuth] = useAuth();
     const history = useHistory();
 
     const [email, setEmail] = useState('');
