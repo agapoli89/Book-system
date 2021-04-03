@@ -53,6 +53,7 @@ export default function Register(props) {
 
                     <Input 
                         label="Email"
+                        type="email"
                         value={form.email.value}
                         onChange={val => changeHandler(val, 'email')}
                         error={form.email.error}
