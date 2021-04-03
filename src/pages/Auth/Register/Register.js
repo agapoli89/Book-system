@@ -20,6 +20,11 @@ export default function Register(props) {
         }
     });
 
+    const valid = !Object.values(form)
+                    .map(input => input.error)
+                    .filter(error => error)
+                    .length;
+
     const submit = e => {
         e.preventDefault();
         setLoading(true);
@@ -68,7 +73,10 @@ export default function Register(props) {
                         showError={form.password.showError}/>   
 
                     <div className="text-right">
-                        <LoadingButton loading={loading} className="btn-success">
+                        <LoadingButton 
+                            loading={loading} 
+                            disabled={!valid}
+                            className="btn-success">
                             Gotowe!
                         </LoadingButton>
                     </div>
