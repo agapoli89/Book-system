@@ -116,6 +116,7 @@ const InputRadio = props => {
     )
 }
 
+
 function Input(props) {
     switch (props.type) {
         case 'select':
@@ -128,6 +129,8 @@ function Input(props) {
             return <InputRadio {...props} />;
         case 'textarea':
             return <InputTextarea {...props} />;
+        case 'password':
+            return <InputText {...props} type="password" />;
         default:
             return <InputText {...props} />;
     }
