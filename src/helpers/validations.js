@@ -11,7 +11,10 @@ const availableRules = {
     },
     min(value, rule) {
         return value.length > rule.length ? '' : `Minimalna liczba znaków: ${rule.length}`;
-    }
+    },
+    email(value) {
+        return validateEmail(value) ? '' : 'Niepoprawny email';
+    },
 };
 
 export function validate(rules = [], value) {
