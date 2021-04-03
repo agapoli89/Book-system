@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
 import Input from '../../../components/Input/Input';
 import { validate } from '../../../helpers/validations';
+import axios from '../../../axios';
 
 export default function Register(props) {
     const [loading, setLoading] = useState(false);
@@ -23,9 +24,15 @@ export default function Register(props) {
     const valid = Object.values(form).map(input => input.value).filter(value => value === '').length > 0 || Object.values(form).map(input => input.error).filter(error => error).length ? true : false;
     //const valid = !Object.values(form).map(input => input.error).filter(error => error).length;
 
-    const submit = e => {
+    const submit = async e => {
         e.preventDefault();
         setLoading(true);
+
+        //const res = await axios.post('https://book-system-1ca8d-default-rtdb.firebaseio.com/users.json', { email: 'test@test.pl', password: 'tajne'});
+
+        const res = await axios.get('/users.json');
+
+        console.log(res)
         
         setTimeout(() => {
             setLoading(false);
