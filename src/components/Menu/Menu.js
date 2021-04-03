@@ -29,7 +29,7 @@ function Menu() {
                                 </NavLink>
                             </li>
                             <li className={styles.menuItem}>  
-                                <a href="#" onClick={logout}>Wyloguj</a>
+                                <button onClick={logout}>Wyloguj</button>
                             </li>
                         </> 
                      )
@@ -39,7 +39,7 @@ function Menu() {
                                 <NavLink to="/rejestracja" activeClassName={styles.menuItemActive}>Zarejestruj</NavLink>
                             </li>
                             <li className={styles.menuItem}>
-                                <a href="#" onClick={login}>Zaloguj</a>
+                                <button onClick={login}>Zaloguj</button>
                             </li>
                         </>
                      )
