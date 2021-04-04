@@ -42,10 +42,19 @@ export default function Register(props) {
             setAuth(true, res.data);
             history.push('/');
         } catch (ex) {
-            setError(ex.response.data.error.message)
+            switch (ex.response.data.error.message){
+                case "EMAIL_EXISTS":
+                    setError("Ten email jest już w bazie.");
+                    break;
+                case "WEAK_PASSWORD : Password should be at least 6 characters":
+                    setError("Za krótkie hasło. Musi mieć minimum 6 znaków.");
+                    break;
+                default:
+                    setError(ex.response.data.error.message);
+            }
             console.log(ex.response)
         }
-        
+        //400 za krótkie hasło. Musi mieć co najmniej 6 znaków
         setLoading(false);
     }
 
