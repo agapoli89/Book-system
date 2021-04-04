@@ -2,31 +2,40 @@ import { useState } from "react";
 import useAuth from '../../../hooks/useAuth';
 import { useHistory } from 'react-router-dom';
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
+import axiosFresh from 'axios';
+import axios from "axios";
 
 export default function Login(props) {
-    const [setAuth] = useAuth();
+    const [auth, setAuth] = useAuth();
     const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [valid, setValid] = useState(null);
+    const [error, setError] = useState('');
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
         setLoading(true);
         
-        setTimeout(() => {
-            //logowanie
-            if (true) {
-                setAuth(true);
-                history.push('/');
-            } else {
-                setValid(false);
-                setPassword('');
-            }
+        try {
+            const res = await axiosFresh.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyClC2eUU2_QxtASujHZhSRRi1mWaUKH9Ow', {
+                email,
+                password,
+                returnSecureToken: true,
+            });
+            setAuth(true, {
+                email: res.data.email,
+                token: res.data.idToken,
+                userId: res.data.localId,
+            });
+            history.push('/');
+        } catch (ex) {
+            setError(ex.response.data.error.message);
+            console.log(ex.response);
             setLoading(false);
-        }, 500);
+        }
     }
 
     return (
@@ -54,6 +63,7 @@ export default function Login(props) {
                         onChange={e => setPassword(e.target.value)} 
                         className="form-control"/>
                 </div>
+                {error ? <div className="alert alert-danger">{error}</div> : null}
                 <LoadingButton loading={loading}>Zaloguj</LoadingButton>
             </form>
         </div>
