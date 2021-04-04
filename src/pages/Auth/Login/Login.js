@@ -33,9 +33,13 @@ export default function Login(props) {
             history.push('/');
         } catch (ex) {
             setError(ex.response.data.error.message);
-            console.log(ex.response);
             setLoading(false);
+            console.log(ex.response);
         }
+    }
+
+    if (auth) {
+        history.push('/');
     }
 
     return (
