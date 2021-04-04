@@ -21,7 +21,7 @@ export default function Register(props) {
             value: '',
             error: '',
             showError: false,
-            rules: ['required']
+            rules: ['required'],
         }
     });
 
@@ -39,7 +39,11 @@ export default function Register(props) {
             password: form.password.value,
             returnSecureToken: true,
         });
-            setAuth(true, res.data);
+            setAuth(true, {
+                email: res.data.email,
+                token: res.data.idToken,
+                userId: res.data.localId,
+            });
             history.push('/');
         } catch (ex) {
             switch (ex.response.data.error.message){
