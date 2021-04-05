@@ -2,8 +2,7 @@ import { useState } from "react";
 import useAuth from '../../../hooks/useAuth';
 import { useHistory } from 'react-router-dom';
 import LoadingButton from '../../../components/UI/LoadingButton/LoadingButton';
-import axiosFresh from 'axios';
-import axios from "axios";
+import axios from '../../../axios-auth';
 
 export default function Login(props) {
     const [auth, setAuth] = useAuth();
@@ -20,7 +19,7 @@ export default function Login(props) {
         setLoading(true);
         
         try {
-            const res = await axiosFresh.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyClC2eUU2_QxtASujHZhSRRi1mWaUKH9Ow', {
+            const res = await axios.post('/accounts:signInWithPassword', {
                 email,
                 password,
                 returnSecureToken: true,
