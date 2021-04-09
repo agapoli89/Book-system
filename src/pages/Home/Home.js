@@ -5,33 +5,8 @@ import useWebsiteTitle from '../../hooks/useWebsiteTitle';
 import BestHotel from '../../components/Hotels/BestHotel/BestHotel';
 import Hotels from '../../components/Hotels/Hotels';
 import LoadingIcon from '../../components/UI/LoadingIcon/LoadingIcon';
-
-const backendHotels = [
-    {
-      id: 1,
-      name: 'Przy ratuszu',
-      city: 'Wrocław',
-      rating: 8.4,
-      description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-      image: ''
-    },
-    {
-      id: 2,
-      name: 'Pod stokiem',
-      city: 'Wisła',
-      rating: 9.5,
-      description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-      image: ''
-    },
-    {
-      id: 3,
-      name: 'Nad morzem',
-      city: 'Gdynia',
-      rating: 7.8,
-      description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-      image: ''
-    }
-  ]
+import axios from '../../axios';
+import { objectToArrayWithId } from '../../helpers/objects';
 
 export default function Home(props) {
     useWebsiteTitle('Noclegi-strona główna');
@@ -46,19 +21,29 @@ export default function Home(props) {
 
     const openHotel = hotel => setLastHotel(hotel);
     const removeLastHotel = () => setLastHotel(null);
+    const fetchHotels = async () => {
+      try {
+        const res = await axios.get('/hotels.json');
+        const newHotels = objectToArrayWithId(res.data).filter(hotel => hotel.status == 1);
+        setHotels(newHotels);
+      } catch (ex) {
+        console.log(ex.response);
+      }
+      setLoading(false);
+    }
 
     useEffect(() => {
-      setTimeout(() => {
-        setHotels(backendHotels);
-        setLoading(false);
-      }, 1000);
+      fetchHotels();
     }, []);
 
     return loading ? <LoadingIcon /> : (
         <>
             {lastHotel ? <LastHotel {...lastHotel} onRemove={removeLastHotel}/> : null}
-            {getBestHotel() ? <BestHotel getHotel={getBestHotel}/> : null}
+            {getBestHotel() 
+              ? <BestHotel getHotel={getBestHotel}/> 
+              : null
+            }
             <Hotels onOpen={openHotel} hotels={hotels} />
         </>
-    )
+    );
 }
