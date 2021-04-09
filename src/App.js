@@ -1,5 +1,5 @@
 import { useReducer, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
@@ -129,18 +129,22 @@ function App() {
     </Header>
   );
   const content = (
-    <Suspense fallback={<p>Ładowanie...</p>}>
-      <Switch>
-        <AuthenticatedRoute path="/profil/hotele/dodaj" component={AddHotel} />
-        <AuthenticatedRoute path="/profil" component={Profile} />
-        <Route path="/hotele/:id" component={Hotel} />
-        <Route path="/wyszukaj/:term?" component={Search} />
-        <Route path="/zaloguj" component={Login} />
-        <Route path="/rejestracja" component={Register} />
-        <Route path="/" exact component={Home} />
-        <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+    <div>
+      <ErrorBoundary>
+        <Suspense fallback={<p>Ładowanie...</p>}>
+          <Switch>
+            <AuthenticatedRoute path="/profil/hotele/dodaj" component={AddHotel} />
+            <AuthenticatedRoute path="/profil" component={Profile} />
+            <Route path="/hotele/:id" component={Hotel} />
+            <Route path="/wyszukaj/:term?" component={Search} />
+            <Route path="/zaloguj" component={Login} />
+            <Route path="/rejestracja" component={Register} />
+            <Route path="/" exact component={Home} />
+            <Route component={NotFound} />
+          </Switch>
+        </Suspense>
+      </ErrorBoundary>
+    </div>
   );
 
   return (
@@ -159,14 +163,12 @@ function App() {
             dispatch: dispatch,
           }}>
 
-            <ErrorBoundary>
               <Layout 
                 header={header}
                 menu={<Menu/>}
                 content={content}
                 footer={<div><Footer/></div>}
               />
-            </ErrorBoundary>
 
           </ReducerContext.Provider> 
         </ThemeContext.Provider>
