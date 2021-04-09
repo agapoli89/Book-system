@@ -19,7 +19,9 @@ function Hotel(props) {
 
     const clickHandler = e => {
         //e.preventDefault();
-        props.onOpen(props);
+        if (props.onOpen) {
+            props.onOpen(props);
+        }
     }
 
     return (
@@ -40,7 +42,7 @@ function Hotel(props) {
                                 <span className="badge badge-light">{props.city}</span>
                             </div>
                             <div className="col text-right">
-                                <h5>{props.rating}</h5>
+                                <h5>{props.rating ?? 'Brak ocen'}</h5>
                                     <Link
                                         to={`/hotele/${props.id}`}
                                         className={`btn btn-${theme.color} float-right mt-2 px-5`} 
@@ -53,7 +55,7 @@ function Hotel(props) {
                     <div className="col-12">
                         <p className={styles.description}>{props.description}</p>
                         {auth 
-                            ? <p className="mt-2">Dostępność: 4 pokoje</p>
+                            ? <p className="mt-2">Dostępność: {props.rooms} pokoje</p>
                             : <p className="mt-2">Dostępność: zaloguj</p>
                         }
                     </div>
