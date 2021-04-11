@@ -26,12 +26,65 @@ function Hotel(props) {
           setLoading(false);
     }
 
+    const rateHotel = async () => {
+        try {
+            console.log(auth.token)
+            const res = await axios.put(`/hotels/${id}/rating.json?auth=${auth.token}`, rating);
+            history.push('/');
+          } catch (ex) {
+            console.log(ex.response);
+          }
+          setLoading(false);
+    }
+
     useEffect(() => {
         fetchHotel();
     }, []);
 
     return loading ? <LoadingIcon /> : (
-        <h1>Hotel: {hotel.name}</h1>
+        <div className="card">
+            <div className="card-header">
+                <h1>Hotel: {hotel.name}</h1>
+            </div>
+            <div className="card-body">
+                <img
+                    src={`https://placeimg.com/420/180/arch`}
+                    alt=""
+                    className="img-fluid img-thumbnail mb-4" />
+
+                <p>Miejscowosc: <b>{hotel.city}</b></p>
+                <p>Pokoje: <b>{hotel.rooms}</b></p>
+                <p className="load">{hotel.description}</p>
+                <p>Wyposaæenie:</p>
+                <ul>
+                    {hotel.features.map(item => 
+                        <li key={item}>{item}</li>
+                    )}
+                </ul>
+                <h4>Ocena: {props.rating ?? 'brak ocen'}</h4>
+            </div>
+            <div className="card-footer">
+                {auth ? (
+                    <div className="form-group row mt-4">
+                        <div className="col">
+                            <select 
+                                value={rating}
+                                onChange={e => setRating(e.target.value)}
+                                className="form-control form-select-lg mb-3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div className="col">
+                            <button className="btn btn-info" onClick={rateHotel}>Ocen</button>
+                        </div>
+                    </div>
+                ) : null}
+            </div>
+        </div>
     );
 }
 
