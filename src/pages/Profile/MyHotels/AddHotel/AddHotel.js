@@ -1,13 +1,14 @@
 import axios from '../../../../axios';
 import { useHistory } from 'react-router-dom';
 import HotelForm from '../HotelForm';
+import useAuth from '../../../../hooks/useAuth';
 
 function AddHotel(props) {
-
+    const [auth] = useAuth();
     const history = useHistory();
     
     const submit = async form => {
-        await axios.post('/hotels.json', form)
+        await axios.post(`/hotels.json?auth=${auth.token}`, form)
         history.push('/profil/hotele');
     }
 
