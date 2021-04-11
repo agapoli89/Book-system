@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
-//import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import LoadingIcon from "../../components/UI/LoadingIcon/LoadingIcon";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
+import axios from '../../axios';
+import useAuth from '../../hooks/useAuth';
 
 function Hotel(props) {
-    //const { id } = useParams();
+    const history = useHistory();
+    const [auth] = useAuth();
+    const { id } = useParams();
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [rating, setRating] = useState(5);
 
-    const setTitle = useWebsiteTitle();
+    const setTitle = useWebsiteTitle(); 
     
-    const fetchHotel = () => {
-        
-        setHotel({
-            id: 1,
-            name: 'Przy ratuszu',
-            city: 'Wrocław',
-            rating: 8.4,
-            description: 'Fuga nihil quae, aperiam dolorem repudiandae voluptatibus incidunt eaque maiores voluptate iusto quo explicabo culpa alias dolorum accusamus corporis quibusdam ipsum iure.',
-            image: ''
-          });
-          setTitle('Przy ratuszu')
+    const fetchHotel =  async () => {
+        try {
+            const res = await axios.get(`/hotels/${id}.json`);
+            setHotel(res.data);
+            setTitle('Hotel - ' + res.data.name);
+          } catch (ex) {
+            console.log(ex.response);
+          }
           setLoading(false);
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            fetchHotel();
-        }, 500);
+        fetchHotel();
     }, []);
 
     return loading ? <LoadingIcon /> : (
