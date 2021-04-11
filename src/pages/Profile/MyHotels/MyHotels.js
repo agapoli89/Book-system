@@ -38,6 +38,7 @@ export default function MyHotels(props) {
                 <table className="table">
                     <thead>
                         <th>Nazwa</th>
+                        <th>Status</th>
                         <th>Opcje</th>
                     </thead>
                     <tbody>
@@ -45,7 +46,13 @@ export default function MyHotels(props) {
                             <tr>
                                 <td>{hotel.name}</td>
                                 <td>
-                                    <button className="btn btn-warning">Edytuj</button>
+                                    {hotel.status == 1
+                                        ? <span className="badge bg-success text-light">aktywny</span>
+                                        : <span className="badge bg-secondary text-light">ukryty</span>
+                                    }
+                                </td>
+                                <td>
+                                    <Link to={`/profil/hotele/edytuj/${hotel.id}`} className="btn btn-warning">Edytuj</Link>
                                     <button onClick={() => deleteHandler(hotel.id)} className="btn btn-danger ml-2">Usuń</button>
                                 </td>    
                             </tr>
