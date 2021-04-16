@@ -29,7 +29,7 @@ function Hotel(props) {
     const rateHotel = async () => {
         try {
             console.log(auth.token)
-            const res = await axios.put(`/hotels/${id}/rating.json?auth=${auth.token}`, rating);
+            await axios.put(`/hotels/${id}/rating.json?auth=${auth.token}`, rating);
             history.push('/');
           } catch (ex) {
             console.log(ex.response);

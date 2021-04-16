@@ -103,7 +103,7 @@ const InputRadio = props => {
                 name={props.name} 
                 value={option.value} 
                 onChange={e => props.onChange(e.target.value)}
-                checked={props.value == option.value} 
+                checked={props.value === option.value} 
                 className="custom-control-input" />
             <label className="custom-control-label" htmlFor={`radio-${option.value}-${props.name}`}>{option.label}</label>
         </div>

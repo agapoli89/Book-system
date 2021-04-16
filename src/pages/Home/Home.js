@@ -24,7 +24,7 @@ export default function Home(props) {
     const fetchHotels = async () => {
       try {
         const res = await axios.get('/hotels.json');
-        const newHotels = objectToArrayWithId(res.data).filter(hotel => hotel.status == 1);
+        const newHotels = objectToArrayWithId(res.data).filter(hotel => parseInt(hotel.status) === 1);
         setHotels(newHotels);
       } catch (ex) {
         console.log(ex.response);

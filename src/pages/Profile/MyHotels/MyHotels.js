@@ -30,23 +30,25 @@ export default function MyHotels(props) {
 
     useEffect(() => {
         fetchHotels();
-    }, []);
+    }, [auth.userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
             {hotels ? (
                 <table className="table">
                     <thead>
-                        <th>Nazwa</th>
-                        <th>Status</th>
-                        <th>Opcje</th>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Status</th>
+                            <th>Opcje</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {hotels.map(hotel => (
-                            <tr>
+                            <tr key={hotel.id}>
                                 <td>{hotel.name}</td>
                                 <td>
-                                    {hotel.status == 1
+                                    {parseInt(hotel.status) === 1
                                         ? <span className="badge bg-success text-light">aktywny</span>
                                         : <span className="badge bg-secondary text-light">ukryty</span>
                                     }
