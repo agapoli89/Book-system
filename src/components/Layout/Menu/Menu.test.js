@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AuthContext from '../../context/authContext';
+import AuthContext from '../../../context/authContext';
 import Menu from './Menu';
 
 describe('Menu component', () => {

@@ -10,7 +10,7 @@
 
 .headerImage {
     background-color: #cdcdcd;
-    background-image: url(../../assets/images/header.jpg);
+    background-image: url(../../../assets/images/header.jpg);
     background-size: 110%;
     background-position: center;
     position: absolute;
