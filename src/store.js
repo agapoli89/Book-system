@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 
 const initialState = {
     user: JSON.parse(window.localStorage.getItem('token-data')) ?? null,
-    theme: 'primary',
+    theme: 'info',
 }
 
 const reducer = (state = initialState, action) => {
