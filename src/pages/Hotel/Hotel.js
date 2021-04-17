@@ -79,7 +79,7 @@ function Hotel(props) {
                             </select>
                         </div>
                         <div className="col">
-                            <button className="btn btn-info" onClick={rateHotel}>Ocen</button>
+                            <button className="btn btn-info" onClick={rateHotel}>Oceń</button>
                         </div>
                     </div>
                 ) : null}
